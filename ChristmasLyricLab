@@ -1,0 +1,63 @@
+package threadslab;
+import java.util.*;
+        
+        
+class TaskThreadsLab {
+      
+  public static void main(String[] args) {
+      
+     // Create tasks
+    Runnable printFa = new Strings("fa", 1);
+    Task thread2 = new Task ("-la-la-la-la");
+    Task thread3 =  new Task (" -la-la");
+    Task thread4 = new Task(" -la");
+    Task thread5 = new Task(" -la");   
+    Timer t = new Timer();
+
+
+    // Create thread Fa
+    Thread thread1 = new Thread(printFa);
+
+    // Start threads
+    thread1.start(); //fa
+    t.schedule(thread2, 500); //  executes for every 1/2 second
+    t.schedule(thread3, 1000); //  executes for every 1 second
+    t.schedule(thread4, 2000); //  executes "-la" for every 2 second
+    t.schedule(thread5, 2500); //  executes final "-la" for every 2.5 second   
+     
+}
+    
+}
+// The task for printing a specified String in specified times
+class Strings implements Runnable {
+    private String stringToPrint;
+    private int times; // The times to repeat
+
+    /** Construct a task with specified String and number of
+    *  times to print the String
+    */
+    public Strings(String x, int t) {
+        stringToPrint = x;
+        times = t;
+    }
+
+    @Override /** Override the run() method to tell the system
+    *  what the task to perform
+    */
+    public void run() {
+        for (int i = 0; i < times; i++) {
+        System.out.print(stringToPrint);
+        }
+    }
+}
+
+//This tassk prints out the lyric 
+class Task extends TimerTask {
+    private String lyric;
+    public Task(String name) {
+        this.lyric = name;
+    }
+    public void run() {
+        System.out.print(lyric);
+    }
+}
